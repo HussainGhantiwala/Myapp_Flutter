@@ -5,21 +5,23 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("Catalog app"),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Catalog app"),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Image.asset("Assets/images/design.png"),
+            Text(
+              "Hello!",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
-        body: Center(
-          child: Column(
-            children: [
-              Image.asset("Assets/images/design.png"),
-              Text(
-                "Hello i am designing a App!",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ));
+      ),
+      drawer: Drawer(),
+    );
   }
 }
