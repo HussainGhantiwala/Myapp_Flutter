@@ -51,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                     35.0, //space between the text like writing WELCOME 20px dowm(height) from the pic
               ),
               Padding(
+                //it adds padding or empty space around a widget or a bunch of widgets. We can apply padding around any widget by placing it as the child of the Padding widget.
                 padding: const EdgeInsets.symmetric(
                     vertical: 16.0, horizontal: 35.0),
                 child: Column(

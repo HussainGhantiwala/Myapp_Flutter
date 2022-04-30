@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/widgets/drawer.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -7,7 +8,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Catalog app"),
+        title: Text(
+          "Catalog app",
+          style: TextStyle(color: Colors.black, fontSize: 25.0),
+        ),
       ),
       body: Center(
         child: Column(
@@ -21,7 +25,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      drawer: Drawer(),
+      drawer: MyDrawer(),
     );
   }
 }
