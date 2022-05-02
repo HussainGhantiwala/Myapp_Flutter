@@ -1,0 +1,64 @@
+{
+    "Playlist": [
+        {
+            "Artist": "Udit Narayan",
+            "Song": "Pehla Nasha",
+            "color": "#630f10",
+            "image": "https://i0.wp.com/99lyricstore.com/wp-content/uploads/2021/04/Pehla2BNasha2BLyrics2BUdit2BNarayan2Band2BSadhana2BSargam.jpg?w=840&ssl=1"
+        },
+        {
+            "Artist": "Armaan Malik",
+            "Song": "Main Rahoon Ya Na Rahoon",
+            "color": "#a3b295",
+            "image": "MV5BMjJmYTEyMWMtODZmMi00ODg5LThkM2MtOWY4MjgxYjMyNjY0XkEyXkFqcGdeQXVyODAzNzAwOTU"
+        },
+        {
+            "Artist": "Atif Aslam, Pritam",
+            "Song": "Tu Jaane Na",
+            "color": "#dd661f",
+            "image": "http://lyricsmb.com/wp-content/uploads/2021/04/1619179614_maxresdefault-1400x800.jpg"
+        },
+        {
+            "Artist": "Arijit Singh",
+            "Song": "Dekha Hazaro Dafaa",
+            "color": "#883f47",
+            "image": "https://i0.wp.com/bangla-lyrics.club/wp-content/uploads/2019/11/Dekha-Hazaro-Dafaa-Lyrics-Song.jpg?fit=801%2C503&ssl=1"
+        },
+        {
+            "Artist": "Atif Aslam, Alisha Chinai, Pritam",
+            "Song": "Tera Hone Laga Hoon",
+            "color": "#dd661f",
+            "image": "https://i.pinimg.com/originals/56/ec/d6/56ecd63d501843ff2fe736c141fe726d.jpg"
+        },
+        {
+            "Artist": "Pritam, Mohit Chauhan",
+            "Song": "Tum Se Hi",
+            "color": "#0a2a36",
+            "image": "https://a10.gaanacdn.com/gn_img/albums/oAJbDElKnL/oAJbDElKnL/size_l.jpg"
+        },
+        {
+            "Artist": "Pritam, Arijit Singh",
+            "Song": "Raabta",
+            "color": "#690512",
+            "image": "https://a10.gaanacdn.com/gn_img/albums/BZgWoOW2d9/ZgWo1q7K2d/size_l_1549016975.jpg"
+        },
+        {
+            "Artist": "Pritam, Shafqat Amanat Ali",
+            "Song": "Tu Hi Mera",
+            "color": "#aa2f2f",
+            "image": "https://pagalnew.com/coverimages/Tu-Hi-Mera-Jannat-2-Original-Motion-Picture-Soundtrack-500-500.jpg"
+        },
+        {
+            "Artist": "A.R Rahman ,Jaswinder Singh ,Shiraz Uppal",
+            "Song": "Raanjhanaa",
+            "color": "#441d1d",
+            "image": "https://s3.amazonaws.com/broadtime_photo/418461377778"
+        },
+        {
+            "Artist": "Pritam, Anupam Amod, Rahat Fateh Ali Khan",
+            "Song": "Tera Deedar Hua",
+            "color": "#aa2f2f",
+            "image": "https://pagalnew.com/coverimages/Tu-Hi-Mera-Jannat-2-Original-Motion-Picture-Soundtrack-500-500.jpg"
+        }
+    ]
+}
