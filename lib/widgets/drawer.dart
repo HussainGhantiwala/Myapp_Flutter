@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors
+//ignore_for_file: prefer_const_constructors
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/utilities/routes.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -26,6 +27,9 @@ class MyDrawer extends StatelessWidget {
                 CupertinoIcons.home,
                 color: Colors.white,
               ),
+              onTap: () {
+                Navigator.pushNamed(context, MyRoutes.homeRoute);
+              },
               title: Text(
                 "Home",
                 style: TextStyle(color: Colors.white),

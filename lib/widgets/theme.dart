@@ -11,7 +11,8 @@ class MyTheme {
           color: Colors.white,
           elevation: 0.0,
           iconTheme: IconThemeData(color: Colors.black),
-          textTheme: Theme.of(context).textTheme,
+          toolbarTextStyle: Theme.of(context).textTheme.bodyText2,
+          titleTextStyle: Theme.of(context).textTheme.headline6,
         ),
       );
 

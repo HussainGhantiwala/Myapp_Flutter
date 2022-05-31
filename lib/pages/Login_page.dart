@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Image.asset(
-                  "Assets/images/Hi.png"), //adding image ton your app so for now i am adding this to my login page
+                  "asset/images/Hi.png"), //adding image ton your app so for now i am adding this to my login page
               Text(
                 "Welcome $name", //Whwn the user enters his/her name on the  username title his/her name will be written beside 'Welcome' thts why the stringe is empty above and to declare something we use '$'
                 textAlign: TextAlign.center,
