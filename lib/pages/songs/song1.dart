@@ -1,22 +1,25 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:audioplayers/audioplayers.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utilities/routes.dart';
+import 'package:slimy_card/slimy_card.dart';
 
 class SongOne extends StatefulWidget {
-  const SongOne({Key? key}) : super(key: key);
+  final int index;
+  final musicData;
+  const SongOne({Key? key, this.musicData, required this.index})
+      : super(key: key);
 
   @override
   State<SongOne> createState() => _SongOneState();
 }
 
 class _SongOneState extends State<SongOne> {
-  bool playing = false; // at the begining we ain't playing any song
+  bool repeat = false;
+  bool playing = false;
+  Color color = Colors.white; // at the begining we ain't playing any song
   IconData playBtn =
       Icons.play_arrow_rounded; //the main state of play button icon
-  AudioCache cache = AudioCache(); // AudioCache
   AudioPlayer audioPlayer = AudioPlayer(); // AudioPlayer
   Duration position = Duration();
   Duration musicLength = Duration();
@@ -27,13 +30,17 @@ class _SongOneState extends State<SongOne> {
         activeColor: Colors.white,
         inactiveColor: Colors.grey[350],
         value: position.inSeconds.toDouble(),
+        min: 0.0,
         max: musicLength.inSeconds.toDouble(),
-        onChanged: (value) {
-          seekToSec(value.toInt());
+        onChanged: (double value) {
+          setState(() {
+            seekToSec(value.toInt());
+            value = value;
+          });
         });
   }
 
-  //creating seek function to freely move the slider or controll the time of the music
+  //creating seek function to freely move the slider or control the time of the music
   void seekToSec(int sec) {
     Duration newPos = Duration(seconds: sec);
     audioPlayer.seek(newPos);
@@ -43,9 +50,7 @@ class _SongOneState extends State<SongOne> {
   @override
   void initState() {
     super.initState();
-    audioPlayer = AudioPlayer();
-    cache = AudioCache(fixedPlayer: audioPlayer);
-
+    //convert ByteData to Uint8List
     //now handeling the audio player time
     //this will help to get the muusic duration
     audioPlayer.onDurationChanged.listen((Duration dd) {
@@ -53,12 +58,12 @@ class _SongOneState extends State<SongOne> {
         musicLength = dd;
       });
     });
-    //this function will allow us to move the slider accordingly
-    audioPlayer.onAudioPositionChanged.listen((Duration dd) {
+    audioPlayer.onAudioPositionChanged.listen((p) {
       setState(() {
-        position = dd;
+        position = p;
       });
     });
+    //this function will allow us to move the slider accordingly
   }
 
   @override
@@ -69,7 +74,7 @@ class _SongOneState extends State<SongOne> {
       body: Stack(
         children: [
           Container(
-            color: Color.fromARGB(255, 28, 166, 113),
+            color: Color.fromARGB(255, 148, 200, 180),
           ),
           SafeArea(
             child: SingleChildScrollView(
@@ -84,11 +89,10 @@ class _SongOneState extends State<SongOne> {
                     height: 15,
                     width: 15,
                     child: InkWell(
-                      child: Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.arrow_back_ios_new_rounded,
+                          color: Colors.white),
                       onTap: () {
+                        audioPlayer.stop();
                         Navigator.pushNamed(context, MyRoutes.navRoute);
                       },
                     ),
@@ -104,7 +108,7 @@ class _SongOneState extends State<SongOne> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 900,
+                    height: 1450,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -119,22 +123,24 @@ class _SongOneState extends State<SongOne> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 30,
+                          height: 20,
                         ),
                         Image(
-                          image: NetworkImage(
-                              "https://i.scdn.co/image/ab67616d0000b27387883ad849cb0602b6f36503"),
+                          image: NetworkImage(this
+                              .widget
+                              .musicData[this.widget.index]["image"]),
                           width: MediaQuery.of(context).size.width - 120,
-                          height: MediaQuery.of(context).size.width - 120,
+                          height: MediaQuery.of(context).size.width - 80,
                           fit: BoxFit.cover,
                         ),
-                        SizedBox(height: 50),
+                        SizedBox(height: 40),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
                               Text(
-                                "Lagja Gale Se Phir",
+                                this.widget.musicData[this.widget.index]
+                                    ["song"],
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -146,7 +152,8 @@ class _SongOneState extends State<SongOne> {
                                 height: 10,
                               ),
                               Text(
-                                "Lata Mangeshkar",
+                                this.widget.musicData[this.widget.index]
+                                    ["singer"],
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 10,
@@ -186,6 +193,24 @@ class _SongOneState extends State<SongOne> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       IconButton(
+                                          iconSize: 32.0,
+                                          color: color,
+                                          onPressed: (() {
+                                            if (repeat == false) {
+                                              audioPlayer.setReleaseMode(
+                                                  ReleaseMode.LOOP);
+                                              setState(() {
+                                                repeat = true;
+                                                color = Colors.blue;
+                                              });
+                                            } else if (repeat == true) {
+                                              audioPlayer.setReleaseMode(
+                                                  ReleaseMode.RELEASE);
+                                              color = Colors.white;
+                                            }
+                                          }),
+                                          icon: Icon(Icons.loop_sharp)),
+                                      IconButton(
                                         iconSize: 45.0,
                                         color: Colors.white,
                                         onPressed: (() {}),
@@ -196,31 +221,116 @@ class _SongOneState extends State<SongOne> {
                                       IconButton(
                                         iconSize: 52.0,
                                         color: Colors.white,
-                                        onPressed: (() {
+                                        onPressed: (() async {
                                           if (!playing) {
-                                            cache.play("Lagja.mp3");
+                                            await audioPlayer.play(this
+                                                    .widget
+                                                    .musicData[
+                                                this.widget.index]["audio"]);
+                                            audioPlayer.notificationService
+                                                .setNotification(
+                                                    title: this.widget.musicData[
+                                                            this.widget.index]
+                                                        ["song"],
+                                                    artist: this.widget.musicData[
+                                                            this.widget.index]
+                                                        ["singer"],
+                                                    imageUrl: this
+                                                                .widget
+                                                                .musicData[
+                                                            this.widget.index]
+                                                        ["image"],
+                                                    enableNextTrackButton: true,
+                                                    enablePreviousTrackButton:
+                                                        true);
                                             setState(() {
                                               playBtn = Icons.pause_rounded;
                                               playing = true;
                                             });
                                           } else {
-                                            audioPlayer.pause();
+                                            await audioPlayer.pause();
                                             setState(() {
                                               playBtn =
                                                   Icons.play_arrow_rounded;
                                               playing = false;
                                             });
                                           }
+                                          audioPlayer.onPlayerCompletion
+                                              .listen((event) {
+                                            setState(() {
+                                              position = Duration(seconds: 0);
+                                              playBtn =
+                                                  Icons.play_arrow_rounded;
+                                              playing = false;
+                                              Navigator.pushNamed(
+                                                  context, MyRoutes.navRoute);
+                                            });
+                                          });
                                         }),
                                         icon: Icon(playBtn),
                                       ),
                                       IconButton(
                                         iconSize: 45.0,
                                         color: Colors.white,
-                                        onPressed: (() {}),
+                                        onPressed: (() {
+                                          if (playing) {
+                                            audioPlayer.stop();
+                                            setState(() {
+                                              playing = false;
+                                            });
+                                          }
+                                        }),
                                         icon: Icon(
                                           Icons.skip_next_rounded,
                                         ),
+                                      ),
+                                      IconButton(
+                                          iconSize: 30.0,
+                                          color: Colors.white,
+                                          onPressed: (() {}),
+                                          icon: Icon(Icons.repeat_rounded))
+                                    ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Column(
+                                children: [
+                                  ListView(
+                                    shrinkWrap: true,
+                                    padding: EdgeInsets.zero,
+                                    children: [
+                                      SlimyCard(
+                                        width: 350,
+                                        topCardHeight: 200,
+                                        slimeEnabled: true,
+                                        color:
+                                            Color.fromARGB(255, 148, 200, 180)
+                                                .withOpacity(0.30),
+                                        topCardWidget: Container(
+                                          margin: EdgeInsets.only(
+                                              top: 10, bottom: 10),
+                                          child: Text(
+                                            "LYRICS",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        bottomCardWidget: SingleChildScrollView(
+                                          physics: BouncingScrollPhysics(),
+                                          child: Text(
+                                              this.widget.musicData[
+                                                  this.widget.index]["lyrics"],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16),
+                                              textAlign: TextAlign.center),
+                                        ),
+                                        bottomCardHeight: 350,
                                       )
                                     ],
                                   )

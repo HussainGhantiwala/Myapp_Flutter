@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/utilities/routes.dart';
 
 class MyDrawer extends StatelessWidget {
+  const MyDrawer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,7 +20,7 @@ class MyDrawer extends StatelessWidget {
                 accountName: Text("Hussain"),
                 accountEmail: Text("hussainghantiwala8@gmail.com"),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: AssetImage("Assets/images/profile_pic.png"),
+                  backgroundImage: AssetImage("assets/images/profile_pic.png"),
                 ),
               ),
             ),
@@ -28,7 +30,7 @@ class MyDrawer extends StatelessWidget {
                 color: Colors.white,
               ),
               onTap: () {
-                Navigator.pushNamed(context, MyRoutes.homeRoute);
+                Navigator.pushNamed(context, MyRoutes.navRoute);
               },
               title: Text(
                 "Home",

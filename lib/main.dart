@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/music/Playlist.dart';
-import 'package:flutter_application_1/pages/first_page.dart';
+import 'package:flutter_application_1/music/anime.dart';
+import 'package:flutter_application_1/pages/slide4.dart';
+import 'package:flutter_application_1/pages/songs/slide2.dart';
+import 'package:flutter_application_1/pages/songs/slide3.dart';
 import 'package:flutter_application_1/pages/songs/song1.dart';
+import 'package:flutter_application_1/pages/songs/song2.dart';
+import 'package:flutter_application_1/pages/splash.dart';
 import 'package:flutter_application_1/utilities/Navigation.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_application_1/pages/Login_page.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
 import 'package:flutter_application_1/utilities/routes.dart';
@@ -28,14 +32,23 @@ class MyApp extends StatelessWidget {
         theme: MyTheme.lightTheme(context),
         darkTheme: MyTheme.darkTheme(context),
         //"if the theme is light the app bar will turn purple"
-        initialRoute: MyRoutes.songRoute,
+        initialRoute: MyRoutes.navRoute,
         routes: {
           MyRoutes.homeRoute: (context) => HomePage(),
           MyRoutes.loginRoute: (context) => LoginPage(),
           MyRoutes.navRoute: (context) => MainNav(),
           MyRoutes.playlistRoute: (context) => MyPlayList(),
-          MyRoutes.songRoute: (context) => SongOne(),
-          MyRoutes.firstRoute: ((context) => FirstPage()),
+          MyRoutes.songRoute: (context) => SongOne(
+                index: 0,
+              ),
+          MyRoutes.twoRoute: (context) => SongTwo(
+                index: 0,
+              ),
+          MyRoutes.splashRoute: (context) => Splash(),
+          MyRoutes.slideRoute: (context) => SlideTwo(index: 0),
+          MyRoutes.slide3: (context) => SlideThree(index: 0),
+          MyRoutes.animeRoute: (context) => Anime(),
+          MyRoutes.animeoneRoute: (context) => AnimeSongs(index: 0),
         });
   }
 }
