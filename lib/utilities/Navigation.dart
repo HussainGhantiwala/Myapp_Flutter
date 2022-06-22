@@ -2,10 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/music/Playlist.dart';
 import 'package:flutter_application_1/pages/home_page.dart';
-import 'package:flutter_application_1/pages/songs/song1.dart';
-import 'package:flutter_application_1/utilities/home_nav.dart';
 import 'package:flutter_application_1/widgets/drawer.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class MainNav extends StatefulWidget {
@@ -18,7 +15,6 @@ class MainNav extends StatefulWidget {
 class _MainNavState extends State<MainNav> {
   List pages = [
     HomePage(),
-    SongOne(),
     MyPlayList(),
     MyDrawer(),
   ];
@@ -41,11 +37,6 @@ class _MainNavState extends State<MainNav> {
             icon: Icon(Icons.home),
             title: Text("Home"),
             selectedColor: Colors.purple,
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.search),
-            title: Text("Search"),
-            selectedColor: Colors.orange,
           ),
           SalomonBottomBarItem(
             icon: Icon(Icons.list),

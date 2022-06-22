@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/songs/slide2.dart';
+import 'package:flutter_application_1/pages/songs/slide3.dart';
+import 'package:flutter_application_1/pages/songs/song1.dart';
 import 'dart:convert';
-import 'package:flutter_application_1/widgets/drawer.dart';
-
-import '../utilities/routes.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,12 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  List pages = [
-    HomePage(),
-    HomePage(),
-    HomePage(),
-    MyDrawer(),
-  ];
   var _currentIndex = 0;
   void onTap(int index) {
     setState(() {
@@ -33,21 +27,21 @@ class _HomePageState extends State<HomePage>
   late TabController _tabController;
   loadData() async {
     await DefaultAssetBundle.of(context)
-        .loadString("asset/files/catalog.json")
+        .loadString("assets/files/catalog.json")
         .then((s) {
       setState(() {
         catalog = json.decode(s);
       });
     });
     await DefaultAssetBundle.of(context)
-        .loadString("asset/files/images.json")
+        .loadString("assets/files/images.json")
         .then((s) {
       setState(() {
         images = json.decode(s);
       });
     });
     await DefaultAssetBundle.of(context)
-        .loadString("asset/files/catalog2.json")
+        .loadString("assets/files/catalog2.json")
         .then((p) {
       setState(() {
         catalog2 = json.decode(p);
@@ -83,7 +77,7 @@ class _HomePageState extends State<HomePage>
             Row(
               children: [
                 SizedBox(
-                  height: 40.0,
+                  height: 45.0,
                 ),
                 Container(
                   margin: const EdgeInsets.only(left: 20),
@@ -111,20 +105,30 @@ class _HomePageState extends State<HomePage>
                       child: Container(
                         height: 200,
                         child: PageView.builder(
+                            physics: BouncingScrollPhysics(),
                             controller: PageController(viewportFraction: 0.9),
                             itemCount: catalog.length,
                             itemBuilder: (_, i) {
-                              return Container(
-                                height: 200,
-                                width: MediaQuery.of(context).size.width,
-                                margin: const EdgeInsets.only(right: 18),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                        catalog[i]["image"],
-                                      ),
-                                      fit: BoxFit.fill),
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SlideThree(
+                                              musicData: catalog, index: i)));
+                                },
+                                child: Container(
+                                  height: 200,
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.only(right: 18),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                          catalog[i]["image"],
+                                        ),
+                                        fit: BoxFit.fill),
+                                  ),
                                 ),
                               );
                             }),
@@ -252,96 +256,102 @@ class _HomePageState extends State<HomePage>
                         physics: BouncingScrollPhysics(),
                         itemCount: images.length,
                         itemBuilder: (_, i) {
-                          return Container(
-                            margin: const EdgeInsets.only(
-                                left: 20, right: 20, top: 10, bottom: 10),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SongOne(
+                                          musicData: images, index: i)));
+                            },
                             child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 2,
-                                      offset: Offset(0, 0),
-                                      color: Colors.grey.withOpacity(0.2),
-                                    ),
-                                  ]),
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 10, bottom: 10),
                               child: Container(
-                                padding: const EdgeInsets.all(8),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 10),
-                                      width: 90,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                images[i]["image"]),
-                                          )),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          images[i]["song"],
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: "Avenir",
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 175),
-                                          width: 30,
-                                          height: 30,
-                                          child: ListTile(
-                                            leading: Icon(
-                                              CupertinoIcons.play_arrow,
-                                              color: Color.fromARGB(
-                                                  255, 70, 174, 197),
-                                            ),
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, MyRoutes.firstRoute);
-                                            },
-                                          ),
-                                        ),
-                                        Text(
-                                          images[i]["singer"],
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontFamily: "Avenir",
-                                              color: Color.fromARGB(
-                                                  255, 150, 148, 148)),
-                                        ),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Container(
-                                          width: 100,
-                                          height: 30,
-                                          child: Text(
-                                            "Old Classics",
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255)),
-                                          ),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 2,
+                                        offset: Offset(0, 0),
+                                        color: Colors.grey.withOpacity(0.2),
+                                      ),
+                                    ]),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
+                                        width: 90,
+                                        height: 120,
+                                        decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(3),
-                                            color: Color.fromARGB(
-                                                255, 101, 174, 172),
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  images[i]["image"]),
+                                            )),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            images[i]["song"],
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: "Avenir",
+                                                fontWeight: FontWeight.bold),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                left: 175),
+                                            width: 30,
+                                            height: 30,
+                                            child: ListTile(
+                                              leading: Icon(
+                                                CupertinoIcons.play_arrow,
+                                                color: Color.fromARGB(
+                                                    255, 70, 174, 197),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            images[i]["singer"],
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontFamily: "Avenir",
+                                                color: Color.fromARGB(
+                                                    255, 150, 148, 148)),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Container(
+                                            width: 100,
+                                            height: 30,
+                                            child: Text(
+                                              "Old Classics",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 255, 255, 255)),
+                                            ),
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(3),
+                                              color: Color.fromARGB(
+                                                  255, 101, 174, 172),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -351,96 +361,111 @@ class _HomePageState extends State<HomePage>
                         physics: BouncingScrollPhysics(),
                         itemCount: images.length,
                         itemBuilder: (_, i) {
-                          return Container(
-                            margin: const EdgeInsets.only(
-                                left: 20, right: 20, top: 10, bottom: 10),
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SlideTwo(
+                                          musicData: catalog2, index: i)));
+                            },
                             child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 2,
-                                      offset: Offset(0, 0),
-                                      color: Colors.grey.withOpacity(0.2),
-                                    ),
-                                  ]),
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, top: 10, bottom: 10),
                               child: Container(
-                                padding: const EdgeInsets.all(8),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(right: 10),
-                                      width: 90,
-                                      height: 120,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                            image: NetworkImage(
-                                                catalog2[i]["image"]),
-                                          )),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          catalog2[i]["song"],
-                                          style: TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: "Avenir",
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 187),
-                                          width: 30,
-                                          height: 30,
-                                          child: ListTile(
-                                            leading: Icon(
-                                              CupertinoIcons.play_arrow,
-                                              color: Color.fromARGB(
-                                                  255, 70, 174, 197),
-                                            ),
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                  context, MyRoutes.firstRoute);
-                                            },
-                                          ),
-                                        ),
-                                        Text(
-                                          catalog2[i]["singer"],
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              fontFamily: "Avenir",
-                                              color: Color.fromARGB(
-                                                  255, 150, 148, 148)),
-                                        ),
-                                        SizedBox(
-                                          height: 15,
-                                        ),
-                                        Container(
-                                          width: 100,
-                                          height: 30,
-                                          child: Text(
-                                            "20's Hit",
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255)),
-                                          ),
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 2,
+                                        offset: Offset(0, 0),
+                                        color: Colors.grey.withOpacity(0.2),
+                                      ),
+                                    ]),
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(right: 10),
+                                        width: 90,
+                                        height: 120,
+                                        decoration: BoxDecoration(
                                             borderRadius:
-                                                BorderRadius.circular(3),
-                                            color: Color.fromARGB(
-                                                255, 101, 174, 172),
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                  catalog2[i]["image"]),
+                                            )),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            catalog2[i]["song"],
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: "Avenir",
+                                                fontWeight: FontWeight.bold),
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                left: 187),
+                                            width: 30,
+                                            height: 30,
+                                            child: ListTile(
+                                              leading: Icon(
+                                                CupertinoIcons.play_arrow,
+                                                color: Color.fromARGB(
+                                                    255, 70, 174, 197),
+                                              ),
+                                              onTap: () {},
+                                            ),
+                                          ),
+                                          Text(
+                                            catalog2[i]["singer"],
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                fontFamily: "Avenir",
+                                                color: Color.fromARGB(
+                                                    255, 150, 148, 148)),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Container(
+                                            width: 100,
+                                            height: 30,
+                                            child: Text(
+                                              "20's Hit",
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      255, 255, 255, 255)),
+                                            ),
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(3),
+                                              gradient: LinearGradient(
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.topRight,
+                                                colors: [
+                                                  Color.fromARGB(
+                                                      255, 115, 204, 220),
+                                                  Color.fromARGB(
+                                                      255, 81, 114, 187)
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
