@@ -2,10 +2,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/songs/slide4.dart';
 import 'package:flutter_application_1/utilities/routes.dart';
-
-import '../pages/songs/slide5.dart';
 import '../pages/songs/slide8.dart';
 import '../pages/songs/slide9.dart';
 
