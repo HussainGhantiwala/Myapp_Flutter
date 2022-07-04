@@ -126,9 +126,8 @@ class _SongOneState extends State<SongOne> {
                           height: 20,
                         ),
                         Image(
-                          image: NetworkImage(this
-                              .widget
-                              .musicData[this.widget.index]["image"]),
+                          image: NetworkImage(
+                              widget.musicData[widget.index]["image"]),
                           width: MediaQuery.of(context).size.width - 120,
                           height: MediaQuery.of(context).size.width - 80,
                           fit: BoxFit.cover,
@@ -139,8 +138,7 @@ class _SongOneState extends State<SongOne> {
                           child: Column(
                             children: [
                               Text(
-                                this.widget.musicData[this.widget.index]
-                                    ["song"],
+                                widget.musicData[widget.index]["song"],
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -152,8 +150,7 @@ class _SongOneState extends State<SongOne> {
                                 height: 10,
                               ),
                               Text(
-                                this.widget.musicData[this.widget.index]
-                                    ["singer"],
+                                widget.musicData[widget.index]["singer"],
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 10,
@@ -223,26 +220,10 @@ class _SongOneState extends State<SongOne> {
                                         color: Colors.white,
                                         onPressed: (() async {
                                           if (!playing) {
-                                            await audioPlayer.play(this
-                                                    .widget
-                                                    .musicData[
-                                                this.widget.index]["audio"]);
-                                            audioPlayer.notificationService
-                                                .setNotification(
-                                                    title: this.widget.musicData[
-                                                            this.widget.index]
-                                                        ["song"],
-                                                    artist: this.widget.musicData[
-                                                            this.widget.index]
-                                                        ["singer"],
-                                                    imageUrl: this
-                                                                .widget
-                                                                .musicData[
-                                                            this.widget.index]
-                                                        ["image"],
-                                                    enableNextTrackButton: true,
-                                                    enablePreviousTrackButton:
-                                                        true);
+                                            await audioPlayer.play(
+                                                widget.musicData[widget.index]
+                                                    ["audio"]);
+
                                             setState(() {
                                               playBtn = Icons.pause_rounded;
                                               playing = true;
@@ -323,8 +304,8 @@ class _SongOneState extends State<SongOne> {
                                         bottomCardWidget: SingleChildScrollView(
                                           physics: BouncingScrollPhysics(),
                                           child: Text(
-                                              this.widget.musicData[
-                                                  this.widget.index]["lyrics"],
+                                              widget.musicData[widget.index]
+                                                  ["lyrics"],
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16),
