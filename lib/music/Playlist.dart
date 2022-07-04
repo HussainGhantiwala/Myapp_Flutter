@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/slide4.dart';
 import 'package:flutter_application_1/utilities/routes.dart';
 
 class MyPlayList extends StatefulWidget {
@@ -13,30 +12,6 @@ class MyPlayList extends StatefulWidget {
 
 class _MyPlayListState extends State<MyPlayList>
     with SingleTickerProviderStateMixin {
-  List playlist = [];
-  loadData() async {
-    await DefaultAssetBundle.of(context)
-        .loadString("assets/files/playlist.json")
-        .then((p) {
-      setState(() {
-        playlist = json.decode(p);
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
-
-  var _currentIndex = 0;
-  void onTap(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -94,6 +69,7 @@ class _MyPlayListState extends State<MyPlayList>
                         SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Text(
                               "For Here",
@@ -153,6 +129,7 @@ class _MyPlayListState extends State<MyPlayList>
                         SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Text(
                               "Lazy Lo-Fi",
@@ -215,6 +192,7 @@ class _MyPlayListState extends State<MyPlayList>
                         SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Text(
                               "Anime",
@@ -242,6 +220,9 @@ class _MyPlayListState extends State<MyPlayList>
               ),
             ),
             InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, MyRoutes.favRoute);
+              },
               child: Container(
                 margin: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 10),
@@ -274,9 +255,10 @@ class _MyPlayListState extends State<MyPlayList>
                         SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Text(
-                              "My Fav",
+                              "Op Songs",
                               style: TextStyle(
                                   fontSize: 15,
                                   fontFamily: "Avenir",
@@ -301,6 +283,9 @@ class _MyPlayListState extends State<MyPlayList>
               ),
             ),
             InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, MyRoutes.nightRoute);
+              },
               child: Container(
                 margin: const EdgeInsets.only(
                     left: 20, right: 20, top: 10, bottom: 10),
@@ -333,6 +318,7 @@ class _MyPlayListState extends State<MyPlayList>
                         SizedBox(width: 10),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
                           children: [
                             Text(
                               "Late Night Vibe",

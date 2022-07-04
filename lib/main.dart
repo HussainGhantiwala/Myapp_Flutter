@@ -2,9 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/music/Playlist.dart';
 import 'package:flutter_application_1/music/anime.dart';
-import 'package:flutter_application_1/pages/slide4.dart';
+import 'package:flutter_application_1/music/fav.dart';
+import 'package:flutter_application_1/music/night.dart';
+import 'package:flutter_application_1/pages/songs/slide4.dart';
 import 'package:flutter_application_1/pages/songs/slide2.dart';
 import 'package:flutter_application_1/pages/songs/slide3.dart';
+import 'package:flutter_application_1/pages/songs/slide5.dart';
+import 'package:flutter_application_1/pages/songs/slide6.dart';
+import 'package:flutter_application_1/pages/songs/slide7.dart';
+import 'package:flutter_application_1/pages/songs/slide8.dart';
+import 'package:flutter_application_1/pages/songs/slide9.dart';
 import 'package:flutter_application_1/pages/songs/song1.dart';
 import 'package:flutter_application_1/pages/songs/song2.dart';
 import 'package:flutter_application_1/pages/splash.dart';
@@ -32,7 +39,7 @@ class MyApp extends StatelessWidget {
         theme: MyTheme.lightTheme(context),
         darkTheme: MyTheme.darkTheme(context),
         //"if the theme is light the app bar will turn purple"
-        initialRoute: MyRoutes.navRoute,
+        initialRoute: MyRoutes.splashRoute,
         routes: {
           MyRoutes.homeRoute: (context) => HomePage(),
           MyRoutes.loginRoute: (context) => LoginPage(),
@@ -49,6 +56,13 @@ class MyApp extends StatelessWidget {
           MyRoutes.slide3: (context) => SlideThree(index: 0),
           MyRoutes.animeRoute: (context) => Anime(),
           MyRoutes.animeoneRoute: (context) => AnimeSongs(index: 0),
+          MyRoutes.animetwoRoute: (context) => AnimeSongsTwo(index: 0),
+          MyRoutes.favRoute: (context) => Fav(),
+          MyRoutes.fav2Route: (context) => FavSongs(index: 0),
+          MyRoutes.fav3Route: (context) => FavSongsTwo(index: 0),
+          MyRoutes.nightRoute: (context) => Night(),
+          MyRoutes.night2Route: (context) => NightSongs(index: 0),
+          MyRoutes.night3Route: (context) => NightSongsTwo(index: 0),
         });
   }
 }

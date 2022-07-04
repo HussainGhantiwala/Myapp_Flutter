@@ -12,4 +12,11 @@ class MyRoutes {
   static String slide3 = "/slidethree";
   static String animeRoute = "/anime";
   static String animeoneRoute = "/animesongs";
+  static String animetwoRoute = "/animetwosongs";
+  static String favRoute = "/fav";
+  static String fav2Route = "favsongs";
+  static String fav3Route = "favsongsTwo";
+  static String nightRoute = "night";
+  static String night2Route = "nightsong";
+  static String night3Route = "nightsong2";
 }

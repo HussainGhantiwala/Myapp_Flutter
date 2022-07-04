@@ -13,6 +13,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
+  String greeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return 'Good Morning';
+    }
+    if (hour < 17) {
+      return 'Good Afternoon';
+    }
+    return 'Good Evening';
+  }
+
   var _currentIndex = 0;
   void onTap(int index) {
     setState(() {
@@ -82,7 +93,7 @@ class _HomePageState extends State<HomePage>
                 Container(
                   margin: const EdgeInsets.only(left: 20),
                   child: Text(
-                    "For You",
+                    greeting(),
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w500,
@@ -92,7 +103,7 @@ class _HomePageState extends State<HomePage>
               ],
             ),
             SizedBox(
-              height: 10.0,
+              height: 12.0,
             ),
             Container(
               height: 200,
@@ -203,6 +214,7 @@ class _HomePageState extends State<HomePage>
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.topRight,
+                                    // ignore: prefer_const_literals_to_create_immutables
                                     colors: [
                                       Color.fromARGB(255, 115, 204, 220),
                                       Color.fromARGB(255, 37, 102, 241)
@@ -453,6 +465,7 @@ class _HomePageState extends State<HomePage>
                                               gradient: LinearGradient(
                                                 begin: Alignment.topLeft,
                                                 end: Alignment.topRight,
+                                                // ignore: prefer_const_literals_to_create_immutables
                                                 colors: [
                                                   Color.fromARGB(
                                                       255, 115, 204, 220),

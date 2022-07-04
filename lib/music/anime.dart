@@ -1,14 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 import 'dart:convert';
-
-import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/music/Playlist.dart';
-import 'package:flutter_application_1/pages/slide4.dart';
-import 'package:flutter_application_1/utilities/Navigation.dart';
+import 'package:flutter_application_1/pages/songs/slide4.dart';
 import 'package:flutter_application_1/utilities/routes.dart';
 
-import '../pages/songs/slide3.dart';
+import '../pages/songs/slide5.dart';
 
 class Anime extends StatefulWidget {
   const Anime({Key? key}) : super(key: key);
@@ -29,30 +26,8 @@ class _AnimeState extends State<Anime> with SingleTickerProviderStateMixin {
   List images = [];
   List catalog2 = [];
   List anime = [];
-  late ScrollController _scrollController;
-  late TabController _tabController;
+  List anime2 = [];
   loadData() async {
-    await DefaultAssetBundle.of(context)
-        .loadString("assets/files/catalog.json")
-        .then((s) {
-      setState(() {
-        catalog = json.decode(s);
-      });
-    });
-    await DefaultAssetBundle.of(context)
-        .loadString("assets/files/images.json")
-        .then((s) {
-      setState(() {
-        images = json.decode(s);
-      });
-    });
-    await DefaultAssetBundle.of(context)
-        .loadString("assets/files/catalog2.json")
-        .then((p) {
-      setState(() {
-        catalog2 = json.decode(p);
-      });
-    });
     await DefaultAssetBundle.of(context)
         .loadString("assets/files/anime.json")
         .then((a) {
@@ -60,13 +35,18 @@ class _AnimeState extends State<Anime> with SingleTickerProviderStateMixin {
         anime = json.decode(a);
       });
     });
+    await DefaultAssetBundle.of(context)
+        .loadString("assets/files/anime2.json")
+        .then((c) {
+      setState(() {
+        anime2 = json.decode(c);
+      });
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
-    _scrollController = ScrollController();
 
     loadData();
   }
@@ -156,6 +136,121 @@ class _AnimeState extends State<Anime> with SingleTickerProviderStateMixin {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 25,
+              ),
+              Expanded(
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemCount: anime.length,
+                    itemBuilder: (_, i) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AnimeSongsTwo(
+                                      musicData: anime2, index: i)));
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                              left: 20, right: 20, top: 10, bottom: 10),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 2,
+                                    offset: Offset(0, 0),
+                                    color: Colors.grey.withOpacity(0.2),
+                                  ),
+                                ]),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 10),
+                                    width: 90,
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                          image:
+                                              NetworkImage(anime2[i]["image"]),
+                                        )),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        anime2[i]["song"],
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: "Avenir",
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Container(
+                                        margin:
+                                            const EdgeInsets.only(left: 175),
+                                        width: 30,
+                                        height: 30,
+                                        child: ListTile(
+                                          leading: Icon(
+                                            CupertinoIcons.play_arrow,
+                                            color: Color.fromARGB(
+                                                255, 70, 174, 197),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        anime2[i]["singer"],
+                                        style: TextStyle(
+                                            fontSize: 10,
+                                            fontFamily: "Avenir",
+                                            color: Color.fromARGB(
+                                                255, 150, 148, 148)),
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      Container(
+                                        width: 80,
+                                        height: 30,
+                                        child: Text(
+                                          "Anime",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255)),
+                                        ),
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(3),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.topRight,
+                                            // ignore: prefer_const_literals_to_create_immutables
+                                            colors: [
+                                              Color.fromARGB(255, 241, 70, 40),
+                                              Color.fromARGB(255, 41, 36, 36),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+              )
             ])));
   }
 }
