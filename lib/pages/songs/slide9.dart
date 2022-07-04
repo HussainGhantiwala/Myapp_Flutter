@@ -270,7 +270,7 @@ class _NightSongsTwoState extends State<NightSongsTwo> {
                                                   Icons.play_arrow_rounded;
                                               playing = false;
                                               Navigator.pushNamed(
-                                                  context, MyRoutes.favRoute);
+                                                  context, MyRoutes.nightRoute);
                                             });
                                           });
                                         }),
@@ -329,8 +329,8 @@ class _NightSongsTwoState extends State<NightSongsTwo> {
                                         bottomCardWidget: SingleChildScrollView(
                                           physics: BouncingScrollPhysics(),
                                           child: Text(
-                                              this.widget.musicData[
-                                                  this.widget.index]["lyrics"],
+                                              widget.musicData[widget.index]
+                                                  ["lyrics"],
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16),

@@ -270,7 +270,7 @@ class _NightSongsState extends State<NightSongs> {
                                                   Icons.play_arrow_rounded;
                                               playing = false;
                                               Navigator.pushNamed(
-                                                  context, MyRoutes.favRoute);
+                                                  context, MyRoutes.nightRoute);
                                             });
                                           });
                                         }),
