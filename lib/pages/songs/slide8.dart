@@ -78,7 +78,6 @@ class _NightSongsState extends State<NightSongs> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double _currentSliderValue = 20;
     return Scaffold(
       body: Stack(
         children: [
